@@ -1,11 +1,22 @@
 export default class EUFuckingLaw {
-  constructor ({ parent: parentSelector, onCookiesAccepted, onCookiesRejected, onCookiesRevoked, allowReject = true, allowRevoke = false, style }) {
+  constructor ({
+      parent: parentSelector,
+      onCookiesAccepted,
+      onCookiesRejected,
+      onCookiesRevoked,
+      allowReject = true,
+      allowRevoke = false,
+      acceptText = `This site uses cookies. Due to EU laws we have to inform you about this.`,
+      revokeText = `According to EU laws we grant to you the possibility of revoking your agreement on cookie usage on this site.`
+  }) {
     this.onCookiesAccepted = onCookiesAccepted
     this.onCookiesRejected = onCookiesRejected
     this.onCookiesRevoked = onCookiesRevoked
 
     this.allowRevoke = allowRevoke
     this.allowReject = allowReject
+    this.acceptText = acceptText
+    this.revokeText = revokeText
     this.cookieAcceptBar = null // The cookiebar with the info text and got it / decline buttons
     this.cookieRevokeBar = null // The cookie bar with the reject button after the cookie has been accepted
 
@@ -30,7 +41,7 @@ export default class EUFuckingLaw {
       this.cookieRevokeBar.className = 'eufuckingcookie-revokebar'
 
       const infoTextElement = document.createElement('p')
-      infoTextElement.innerText = `According to EU laws we grant to you the possibility of revoking your agreement on cookie usage on this site.`
+      infoTextElement.innerText = this.revokeText
       this.cookieRevokeBar.appendChild(infoTextElement)
 
       const revokeButton = document.createElement('button')
@@ -53,7 +64,7 @@ export default class EUFuckingLaw {
       this.cookieAcceptBar.className = 'eufuckingcookie-acceptbar'
 
       const infoTextElement = document.createElement('p')
-      infoTextElement.innerText = `This site uses cookies. Due to EU laws we have to inform you about this.`
+      infoTextElement.innerText = this.acceptText
       this.cookieAcceptBar.appendChild(infoTextElement)
 
       if (this.allowReject) {
