@@ -1,10 +1,11 @@
 export default class EUFuckingLaw {
-  constructor ({ parent: parentSelector, onCookiesAccepted, onCookiesRejected, onCookiesRevoked, allowRevoke = false, style }) {
+  constructor ({ parent: parentSelector, onCookiesAccepted, onCookiesRejected, onCookiesRevoked, allowDecline = true, allowRevoke = false, style }) {
     this.onCookiesAccepted = onCookiesAccepted
     this.onCookiesRejected = onCookiesRejected
     this.onCookiesRevoked = onCookiesRevoked
 
     this.allowRevoke = allowRevoke
+    this.allowDecline = allowDecline
     this.cookieAcceptBar = null // The cookiebar with the info text and got it / decline buttons
     this.cookieRevokeBar = null // The cookie bar with the reject button after the cookie has been accepted
 
@@ -50,11 +51,13 @@ export default class EUFuckingLaw {
       unter Umständen eingeschränkt wird.`
     this.cookieAcceptBar.appendChild(infoTextElement)
 
-    const rejectButton = document.createElement('button')
-    rejectButton.className = 'eufuckingcookie-declinebutton'
-    rejectButton.onclick = this.rejectCookies
-    rejectButton.innerText = 'Decline'
-    this.cookieAcceptBar.appendChild(rejectButton)
+    if (this.allowDecline) {
+      const rejectButton = document.createElement('button')
+      rejectButton.className = 'eufuckingcookie-declinebutton'
+      rejectButton.onclick = this.rejectCookies
+      rejectButton.innerText = 'Decline'
+      this.cookieAcceptBar.appendChild(rejectButton)
+    }
 
     const acceptButton = document.createElement('button')
     acceptButton.className = 'eufuckingcookie-acceptbutton'

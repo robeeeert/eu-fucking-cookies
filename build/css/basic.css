@@ -51,6 +51,7 @@
   margin: 0;
   flex-shrink: 0;
   flex-grow: 1;
+  margin-right: 10px;
 }
 
 .eufuckingcookie-revokebar button,
