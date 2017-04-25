@@ -30,7 +30,7 @@ export default class EUFuckingLaw {
       this.cookieRevokeBar.className = 'eufuckingcookie-revokebar'
 
       const infoTextElement = document.createElement('p')
-      infoTextElement.innerText = `Sie haben die Möglichkeit, Ihre Zustimmung zur Verwendung von Cookie auf unseren Seiten jederzeit zu widerrufen. Klicken Sie hierfür einfach auf den Button.`
+      infoTextElement.innerText = `According to EU laws we grant to you the possibility of revoking your agreement on cookie usage on this site.`
       this.cookieRevokeBar.appendChild(infoTextElement)
 
       const revokeButton = document.createElement('button')
@@ -53,9 +53,7 @@ export default class EUFuckingLaw {
       this.cookieAcceptBar.className = 'eufuckingcookie-acceptbar'
 
       const infoTextElement = document.createElement('p')
-      infoTextElement.innerText = `Diese Seite verwendet Cookies. NAch EU-Richtlinien sind wir verpflichtet, Ihnen dies mitzuteilen und Ihnen die Möglichkeit zu gewähren,
-        Cookies für diese Seite zu deaktivieren. Bitte beachten Sie jedoch, dass mit der Ablehnung der Cookies der Funktionsumfang der Seite
-        unter Umständen eingeschränkt wird.`
+      infoTextElement.innerText = `This site uses cookies. Due to EU laws we have to inform you about this.`
       this.cookieAcceptBar.appendChild(infoTextElement)
 
       if (this.allowReject) {
