@@ -21,51 +21,59 @@ export default class EUFuckingLaw {
   }
 
   showRevokeBar = parentSelector => {
-    const parent = document.getElementById(parentSelector) || document.body
+    if (this.cookieRevokeBar) {
+      this.cookieRevokeBar.className = this.cookieRevokeBar.className.replace(/eufuckingcookie-revokebar-hidden/g, '')
+    } else {
+      const parent = document.getElementById(parentSelector) || document.body
 
-    this.cookieRevokeBar = document.createElement('div')
-    this.cookieRevokeBar.className = 'eufuckingcookie-revokebar'
+      this.cookieRevokeBar = document.createElement('div')
+      this.cookieRevokeBar.className = 'eufuckingcookie-revokebar'
 
-    const infoTextElement = document.createElement('p')
-    infoTextElement.innerText = `Sie haben die Möglichkeit, Ihre Zustimmung zur Verwendung von Cookie auf unseren Seiten jederzeit zu widerrufen. Klicken Sie hierfür einfach auf den Button.`
-    this.cookieRevokeBar.appendChild(infoTextElement)
+      const infoTextElement = document.createElement('p')
+      infoTextElement.innerText = `Sie haben die Möglichkeit, Ihre Zustimmung zur Verwendung von Cookie auf unseren Seiten jederzeit zu widerrufen. Klicken Sie hierfür einfach auf den Button.`
+      this.cookieRevokeBar.appendChild(infoTextElement)
 
-    const revokeButton = document.createElement('button')
-    revokeButton.className = 'eufuckingcookie-revokebutton'
-    revokeButton.innerText = 'Revoke'
-    revokeButton.onclick = this.revokeCookies
-    this.cookieRevokeBar.appendChild(revokeButton)
+      const revokeButton = document.createElement('button')
+      revokeButton.className = 'eufuckingcookie-revokebutton'
+      revokeButton.innerText = 'Revoke'
+      revokeButton.onclick = this.revokeCookies
+      this.cookieRevokeBar.appendChild(revokeButton)
 
-    parent.appendChild(this.cookieRevokeBar)
+      parent.appendChild(this.cookieRevokeBar)
+    }
   }
 
   showAcceptCookieBar = parentSelector => {
-    const parent = document.getElementById(parentSelector) || document.body
+    if (this.cookieAcceptBar) {
+      this.cookieAcceptBar.className = this.cookieAcceptBar.className.replace(/eufuckingcookie-acceptbar-hidden/g, '')
+    } else {
+      const parent = document.getElementById(parentSelector) || document.body
 
-    this.cookieAcceptBar = document.createElement('div')
-    this.cookieAcceptBar.className = 'eufuckingcookie-acceptbar'
+      this.cookieAcceptBar = document.createElement('div')
+      this.cookieAcceptBar.className = 'eufuckingcookie-acceptbar'
 
-    const infoTextElement = document.createElement('p')
-    infoTextElement.innerText = `Diese Seite verwendet Cookies. NAch EU-Richtlinien sind wir verpflichtet, Ihnen dies mitzuteilen und Ihnen die Möglichkeit zu gewähren,
-      Cookies für diese Seite zu deaktivieren. Bitte beachten Sie jedoch, dass mit der Ablehnung der Cookies der Funktionsumfang der Seite
-      unter Umständen eingeschränkt wird.`
-    this.cookieAcceptBar.appendChild(infoTextElement)
+      const infoTextElement = document.createElement('p')
+      infoTextElement.innerText = `Diese Seite verwendet Cookies. NAch EU-Richtlinien sind wir verpflichtet, Ihnen dies mitzuteilen und Ihnen die Möglichkeit zu gewähren,
+        Cookies für diese Seite zu deaktivieren. Bitte beachten Sie jedoch, dass mit der Ablehnung der Cookies der Funktionsumfang der Seite
+        unter Umständen eingeschränkt wird.`
+      this.cookieAcceptBar.appendChild(infoTextElement)
 
-    if (this.allowDecline) {
-      const rejectButton = document.createElement('button')
-      rejectButton.className = 'eufuckingcookie-declinebutton'
-      rejectButton.onclick = this.rejectCookies
-      rejectButton.innerText = 'Decline'
-      this.cookieAcceptBar.appendChild(rejectButton)
+      if (this.allowDecline) {
+        const rejectButton = document.createElement('button')
+        rejectButton.className = 'eufuckingcookie-declinebutton'
+        rejectButton.onclick = this.rejectCookies
+        rejectButton.innerText = 'Decline'
+        this.cookieAcceptBar.appendChild(rejectButton)
+      }
+
+      const acceptButton = document.createElement('button')
+      acceptButton.className = 'eufuckingcookie-acceptbutton'
+      acceptButton.onclick = this.acceptCookies
+      acceptButton.innerText = 'Got it'
+      this.cookieAcceptBar.appendChild(acceptButton)
+
+      parent.appendChild(this.cookieAcceptBar)
     }
-
-    const acceptButton = document.createElement('button')
-    acceptButton.className = 'eufuckingcookie-acceptbutton'
-    acceptButton.onclick = this.acceptCookies
-    acceptButton.innerText = 'Got it'
-    this.cookieAcceptBar.appendChild(acceptButton)
-
-    parent.appendChild(this.cookieAcceptBar)
   }
 
   rejectCookies = () => {
