@@ -49,15 +49,15 @@
 .eufuckingcookie-acceptbar p {
   padding: 0;
   margin: 0;
-  flex-shrink: 0;
+  flex-shrink: 1;
   flex-grow: 1;
-  margin-right: 10px;
 }
 
 .eufuckingcookie-revokebar button,
 .eufuckingcookie-acceptbar button {
   display: block;
   width: 100%;
+  max-width: 300px;
   flex-shrink: 1;
   padding: 10px;
   background: none;
@@ -66,11 +66,16 @@
   font-family: inherit;
   font-size: inherit;
   cursor: pointer;
+  margin-left: 30px;
 }
 
 .eufuckingcookie-acceptbar .eufuckingcookie-acceptbutton {
   background: dodgerblue;
   border: 2px solid azure;
+}
+
+.eufuckingcookie-acceptbar .eufuckingcookie-declinebutton {
+  width: auto;
 }
 
 .eufuckingcookie-revokebar button.eufuckingcookie-revokebutton {
