@@ -4,7 +4,7 @@ After messing with a few other "implementations" which did not work for me, I de
 
 It was surprisingly easy, so if you find any bugs, let me know.
 
-How to use:
+## Usage
 
 See the `index.html` in the `build` folder. Basically it's like this:
 
