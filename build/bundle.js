@@ -84,6 +84,10 @@ var EUFuckingLaw = function EUFuckingLaw(_ref) {
       onCookiesAccepted = _ref.onCookiesAccepted,
       onCookiesRejected = _ref.onCookiesRejected,
       onCookiesRevoked = _ref.onCookiesRevoked,
+      _ref$allowDecline = _ref.allowDecline,
+      allowDecline = _ref$allowDecline === undefined ? true : _ref$allowDecline,
+      _ref$allowRevoke = _ref.allowRevoke,
+      allowRevoke = _ref$allowRevoke === undefined ? false : _ref$allowRevoke,
       style = _ref.style;
 
   _classCallCheck(this, EUFuckingLaw);
@@ -94,71 +98,117 @@ var EUFuckingLaw = function EUFuckingLaw(_ref) {
   this.onCookiesRejected = onCookiesRejected;
   this.onCookiesRevoked = onCookiesRevoked;
 
-  this.parent = null; // The container for the cookie bars
+  this.allowRevoke = allowRevoke;
+  this.allowDecline = allowDecline;
   this.cookieAcceptBar = null; // The cookiebar with the info text and got it / decline buttons
   this.cookieRevokeBar = null; // The cookie bar with the reject button after the cookie has been accepted
 
-  this.accepted = false; // Whether cookies are accepted or not
-
-  this.insertStyle(style);
   this.init(parentSelector);
 };
 
 var _initialiseProps = function _initialiseProps() {
   var _this = this;
 
-  this.insertStyle = function (style) {
-    if (style) {
-      var fileName = 'css/' + style + '.css';
-
-      var styleElement = document.createElement('link');
-      styleElement.setAttribute('rel', 'stylesheet');
-      styleElement.setAttribute('type', 'text/css');
-      styleElement.setAttribute('href', fileName);
-      console.log(document.head);
-      document.head.appendChild(styleElement);
+  this.init = function (parentSelector) {
+    if (!_this.isCookieAccepted()) {
+      _this.showAcceptCookieBar(parent);
+    } else if (_this.allowRevoke) {
+      _this.showRevokeBar(parent);
     }
   };
 
-  this.init = function (parentSelector) {
-    _this.parent = document.getElementById(parentSelector) || document.body;
+  this.showRevokeBar = function (parentSelector) {
+    if (_this.cookieRevokeBar) {
+      _this.cookieRevokeBar.className = _this.cookieRevokeBar.className.replace(/eufuckingcookie-revokebar-hidden/g, '');
+    } else {
+      var _parent = document.getElementById(parentSelector) || document.body;
 
-    _this.cookieAcceptBar = document.createElement('div');
-    _this.cookieAcceptBar.className = 'eufuckingcookie-acceptbar';
+      _this.cookieRevokeBar = document.createElement('div');
+      _this.cookieRevokeBar.className = 'eufuckingcookie-revokebar';
 
-    var infoTextElement = document.createElement('p');
-    infoTextElement.innerText = 'Diese Seite verwendet Cookies. NAch EU-Richtlinien sind wir verpflichtet, Ihnen dies mitzuteilen und Ihnen die M\xF6glichkeit zu gew\xE4hren,\n      Cookies f\xFCr diese Seite zu deaktivieren. Bitte beachten Sie jedoch, dass mit der Ablehnung der Cookies der Funktionsumfang der Seite\n      unter Umst\xE4nden eingeschr\xE4nkt wird.\n    ';
-    _this.cookieAcceptBar.appendChild(infoTextElement);
+      var infoTextElement = document.createElement('p');
+      infoTextElement.innerText = 'Sie haben die M\xF6glichkeit, Ihre Zustimmung zur Verwendung von Cookie auf unseren Seiten jederzeit zu widerrufen. Klicken Sie hierf\xFCr einfach auf den Button.';
+      _this.cookieRevokeBar.appendChild(infoTextElement);
 
-    var rejectButton = document.createElement('button');
-    rejectButton.className = 'eufuckingcookie-declinebutton';
-    rejectButton.onclick = _this.rejectCookies;
-    rejectButton.innerText = 'Decline';
-    _this.cookieAcceptBar.appendChild(rejectButton);
+      var revokeButton = document.createElement('button');
+      revokeButton.className = 'eufuckingcookie-revokebutton';
+      revokeButton.innerText = 'Revoke';
+      revokeButton.onclick = _this.revokeCookies;
+      _this.cookieRevokeBar.appendChild(revokeButton);
 
-    var acceptButton = document.createElement('button');
-    acceptButton.className = 'eufuckingcookie-acceptbutton';
-    acceptButton.onclick = _this.acceptCookies;
-    acceptButton.innerText = 'Accept';
-    _this.cookieAcceptBar.appendChild(acceptButton);
+      _parent.appendChild(_this.cookieRevokeBar);
+    }
+  };
 
-    _this.parent.appendChild(_this.cookieAcceptBar);
+  this.showAcceptCookieBar = function (parentSelector) {
+    if (_this.cookieAcceptBar) {
+      _this.cookieAcceptBar.className = _this.cookieAcceptBar.className.replace(/eufuckingcookie-acceptbar-hidden/g, '');
+    } else {
+      var _parent2 = document.getElementById(parentSelector) || document.body;
+
+      _this.cookieAcceptBar = document.createElement('div');
+      _this.cookieAcceptBar.className = 'eufuckingcookie-acceptbar';
+
+      var infoTextElement = document.createElement('p');
+      infoTextElement.innerText = 'Diese Seite verwendet Cookies. NAch EU-Richtlinien sind wir verpflichtet, Ihnen dies mitzuteilen und Ihnen die M\xF6glichkeit zu gew\xE4hren,\n        Cookies f\xFCr diese Seite zu deaktivieren. Bitte beachten Sie jedoch, dass mit der Ablehnung der Cookies der Funktionsumfang der Seite\n        unter Umst\xE4nden eingeschr\xE4nkt wird.';
+      _this.cookieAcceptBar.appendChild(infoTextElement);
+
+      if (_this.allowDecline) {
+        var rejectButton = document.createElement('button');
+        rejectButton.className = 'eufuckingcookie-declinebutton';
+        rejectButton.onclick = _this.rejectCookies;
+        rejectButton.innerText = 'Decline';
+        _this.cookieAcceptBar.appendChild(rejectButton);
+      }
+
+      var acceptButton = document.createElement('button');
+      acceptButton.className = 'eufuckingcookie-acceptbutton';
+      acceptButton.onclick = _this.acceptCookies;
+      acceptButton.innerText = 'Got it';
+      _this.cookieAcceptBar.appendChild(acceptButton);
+
+      _parent2.appendChild(_this.cookieAcceptBar);
+    }
   };
 
   this.rejectCookies = function () {
-    _this.accepted = true;
-    _this.onCookiesRejected();
-    _this.hide();
+    _this.unsetCookie();
+    _this.onCookiesRejected && _this.onCookiesRejected();
+    _this.hideAcceptBar();
   };
 
   this.acceptCookies = function () {
-    _this.accepted = false;
-    _this.onCookiesAccepted();
-    _this.hide();
+    _this.setCookie();
+    _this.onCookiesAccepted && _this.onCookiesAccepted();
+    _this.hideAcceptBar();
+    _this.allowRevoke && _this.showRevokeBar();
   };
 
-  this.hide = function () {
+  this.revokeCookies = function () {
+    _this.unsetCookie();
+    _this.onCookiesRevoked && _this.onCookiesRevoked();
+    _this.hideRevokeBar();
+  };
+
+  this.hideRevokeBar = function () {
+    _this.cookieRevokeBar.className += ' eufuckingcookie-revokebar-hidden';
+  };
+
+  this.hideAcceptBar = function () {
     _this.cookieAcceptBar.className += ' eufuckingcookie-acceptbar-hidden';
+  };
+
+  this.isCookieAccepted = function () {
+    return (/eufuckingcookies=allow/.test(document.cookie)
+    );
+  };
+
+  this.setCookie = function () {
+    document.cookie = 'eufuckingcookies=allow; expires=' + (new Date() + 30 * 7 * 24 * 60 * 60 * 1000);
+  };
+
+  this.unsetCookie = function () {
+    document.cookie += 'eufuckingcookies=deny; expires=Thu, 01 Jan 1970 00:00:00 UTC';
   };
 };
 
