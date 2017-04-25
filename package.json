@@ -1,0 +1,17 @@
+{
+  "name": "eu-fucking-cookies",
+  "version": "0.0.1",
+  "description": "A fucking framework to comply to the EU cookie law",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "cookie",
+    "eu",
+    "compliance",
+    "law"
+  ],
+  "author": "Roberto Ciano <roberto@second-page.de>",
+  "license": "MIT"
+}
