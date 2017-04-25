@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack",
-    "clean": "rm build/bundle.js",
-    "test": "cp -R build/* test"
+    "clean": "rm build/bundle.js"
   },
   "keywords": [
     "cookie",
