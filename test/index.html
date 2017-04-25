@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>EU Fucking Cookie Law</title>
+    <link rel="stylesheet" href="css/basic.css">
+  </head>
+  <body>
+    <script src="bundle.js"></script>
+    <script>
+      var cookieManager = new EUFuckingLaw({
+        onCookiesAccepted: function () {
+          console.log('accepted')
+        },
+        onCookiesRejected: function () {
+          console.log('rejected')
+        },
+        style: 'basic'
+      })
+    </script>
+  </body>
+</html>

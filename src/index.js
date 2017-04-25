@@ -1,5 +1,5 @@
 export default class EUFuckingLaw {
-  constructor ({ onCookiesAccepted, onCookiesRejected, onCookiesRevoked }) {
+  constructor ({ parent: parentSelector, onCookiesAccepted, onCookiesRejected, onCookiesRevoked, style }) {
     this.onCookiesAccepted = onCookiesAccepted
     this.onCookiesRejected = onCookiesRejected
     this.onCookiesRevoked = onCookiesRevoked
@@ -9,10 +9,12 @@ export default class EUFuckingLaw {
     this.cookieRevokeBar = null // The cookie bar with the reject button after the cookie has been accepted
 
     this.accepted = false // Whether cookies are accepted or not
+
+    this.init(parentSelector)
   }
 
-  init (parentSelector) {
-    this.parent = document.getElementById(parentSelector)
+  init = parentSelector => {
+    this.parent = document.getElementById(parentSelector) || document.body
 
     this.cookieAcceptBar = document.createElement('div')
     this.cookieAcceptBar.className = 'eufuckingcookie-acceptbar'
@@ -42,11 +44,17 @@ export default class EUFuckingLaw {
   rejectCookies = () => {
     this.accepted = true
     this.onCookiesRejected()
+    this.hide()
   }
 
   acceptCookies = () => {
     this.accepted = false
     this.onCookiesAccepted()
+    this.hide()
+  }
+
+  hide = () => {
+    this.cookieAcceptBar.className += ' eufuckingcookie-acceptbar-hidden'
   }
 }
 
