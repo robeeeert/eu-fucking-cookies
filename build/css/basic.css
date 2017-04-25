@@ -5,7 +5,7 @@
   justify-content: space-between;
   padding: 20px;
   margin: 0;
-  background-color: #222;
+  background-color: rgba(0, 0, 0, .5);
   color: white;
   font-family: sans-serif;
   top: 0;
@@ -25,7 +25,7 @@
   flex-shrink: 0;
 }
 
-.eufuckingcookie-declinebutton {
+.eufuckingcookie-acceptbar button {
   display: block;
   width: 100%;
   flex-shrink: 1;
@@ -38,16 +38,7 @@
   cursor: pointer;
 }
 
-.eufuckingcookie-acceptbutton {
-  display: block;
-  width: 100%;
-  flex-shrink: 1;
-  padding: 10px;
+.eufuckingcookie-acceptbar .eufuckingcookie-acceptbutton {
   background: dodgerblue;
-  border: 2px solid darkslateblue;
-  color: inherit;
-  font-family: inherit;
-  font-size: inherit;
-  font-weight: bold;
-  cursor: pointer;
+  border: 2px solid azure;
 }
