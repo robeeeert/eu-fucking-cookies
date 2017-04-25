@@ -88,7 +88,10 @@ var EUFuckingLaw = function EUFuckingLaw(_ref) {
       allowReject = _ref$allowReject === undefined ? true : _ref$allowReject,
       _ref$allowRevoke = _ref.allowRevoke,
       allowRevoke = _ref$allowRevoke === undefined ? false : _ref$allowRevoke,
-      style = _ref.style;
+      _ref$acceptText = _ref.acceptText,
+      acceptText = _ref$acceptText === undefined ? 'This site uses cookies. Due to EU laws we have to inform you about this.' : _ref$acceptText,
+      _ref$revokeText = _ref.revokeText,
+      revokeText = _ref$revokeText === undefined ? 'According to EU laws we grant to you the possibility of revoking your agreement on cookie usage on this site.' : _ref$revokeText;
 
   _classCallCheck(this, EUFuckingLaw);
 
@@ -100,6 +103,8 @@ var EUFuckingLaw = function EUFuckingLaw(_ref) {
 
   this.allowRevoke = allowRevoke;
   this.allowReject = allowReject;
+  this.acceptText = acceptText;
+  this.revokeText = revokeText;
   this.cookieAcceptBar = null; // The cookiebar with the info text and got it / decline buttons
   this.cookieRevokeBar = null; // The cookie bar with the reject button after the cookie has been accepted
 
@@ -127,7 +132,7 @@ var _initialiseProps = function _initialiseProps() {
       _this.cookieRevokeBar.className = 'eufuckingcookie-revokebar';
 
       var infoTextElement = document.createElement('p');
-      infoTextElement.innerText = 'According to EU laws we grant to you the possibility of revoking your agreement on cookie usage on this site.';
+      infoTextElement.innerText = _this.revokeText;
       _this.cookieRevokeBar.appendChild(infoTextElement);
 
       var revokeButton = document.createElement('button');
@@ -150,7 +155,7 @@ var _initialiseProps = function _initialiseProps() {
       _this.cookieAcceptBar.className = 'eufuckingcookie-acceptbar';
 
       var infoTextElement = document.createElement('p');
-      infoTextElement.innerText = 'This site uses cookies. Due to EU laws we have to inform you about this.';
+      infoTextElement.innerText = _this.acceptText;
       _this.cookieAcceptBar.appendChild(infoTextElement);
 
       if (_this.allowReject) {
