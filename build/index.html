@@ -10,12 +10,14 @@
     <script>
       var cookieManager = new EUFuckingLaw({
         onCookiesAccepted: function () {
-          console.log('accepted')
+          console.log('here I set all my cookies')
         },
         onCookiesRejected: function () {
-          console.log('rejected')
+          console.log('here I don\'t set any cookies')
         },
-        style: 'basic'
+        onCookiesRevoked: function () {
+          console.log('here I unset all my cookies')
+        }
       })
     </script>
   </body>
