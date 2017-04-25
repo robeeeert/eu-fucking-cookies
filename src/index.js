@@ -1,9 +1,10 @@
 export default class EUFuckingLaw {
-  constructor ({ parent: parentSelector, onCookiesAccepted, onCookiesRejected, onCookiesRevoked, style }) {
+  constructor ({ parent: parentSelector, onCookiesAccepted, onCookiesRejected, onCookiesRevoked, allowRevoke = false, style }) {
     this.onCookiesAccepted = onCookiesAccepted
     this.onCookiesRejected = onCookiesRejected
     this.onCookiesRevoked = onCookiesRevoked
 
+    this.allowRevoke = allowRevoke
     this.cookieAcceptBar = null // The cookiebar with the info text and got it / decline buttons
     this.cookieRevokeBar = null // The cookie bar with the reject button after the cookie has been accepted
 
@@ -12,8 +13,29 @@ export default class EUFuckingLaw {
 
   init = parentSelector => {
     if (!this.isCookieAccepted()) {
-      this.showAcceptCookieBar()
+      this.showAcceptCookieBar(parent)
+    } else if (this.allowRevoke) {
+      this.showRevokeBar(parent)
     }
+  }
+
+  showRevokeBar = parentSelector => {
+    const parent = document.getElementById(parentSelector) || document.body
+
+    this.cookieRevokeBar = document.createElement('div')
+    this.cookieRevokeBar.className = 'eufuckingcookie-revokebar'
+
+    const infoTextElement = document.createElement('p')
+    infoTextElement.innerText = `Sie haben die Möglichkeit, Ihre Zustimmung zur Verwendung von Cookie auf unseren Seiten jederzeit zu widerrufen. Klicken Sie hierfür einfach auf den Button.`
+    this.cookieRevokeBar.appendChild(infoTextElement)
+
+    const revokeButton = document.createElement('button')
+    revokeButton.className = 'eufuckingcookie-revokebutton'
+    revokeButton.innerText = 'Revoke'
+    revokeButton.onclick = this.revokeCookies
+    this.cookieRevokeBar.appendChild(revokeButton)
+
+    parent.appendChild(this.cookieRevokeBar)
   }
 
   showAcceptCookieBar = parentSelector => {
@@ -25,8 +47,7 @@ export default class EUFuckingLaw {
     const infoTextElement = document.createElement('p')
     infoTextElement.innerText = `Diese Seite verwendet Cookies. NAch EU-Richtlinien sind wir verpflichtet, Ihnen dies mitzuteilen und Ihnen die Möglichkeit zu gewähren,
       Cookies für diese Seite zu deaktivieren. Bitte beachten Sie jedoch, dass mit der Ablehnung der Cookies der Funktionsumfang der Seite
-      unter Umständen eingeschränkt wird.
-    `
+      unter Umständen eingeschränkt wird.`
     this.cookieAcceptBar.appendChild(infoTextElement)
 
     const rejectButton = document.createElement('button')
@@ -38,7 +59,7 @@ export default class EUFuckingLaw {
     const acceptButton = document.createElement('button')
     acceptButton.className = 'eufuckingcookie-acceptbutton'
     acceptButton.onclick = this.acceptCookies
-    acceptButton.innerText = 'Accept'
+    acceptButton.innerText = 'Got it'
     this.cookieAcceptBar.appendChild(acceptButton)
 
     parent.appendChild(this.cookieAcceptBar)
@@ -47,21 +68,27 @@ export default class EUFuckingLaw {
   rejectCookies = () => {
     this.unsetCookie()
     this.onCookiesRejected && this.onCookiesRejected()
-    this.hide()
+    this.hideAcceptBar()
   }
 
   acceptCookies = () => {
     this.setCookie()
     this.onCookiesAccepted && this.onCookiesAccepted()
-    this.hide()
+    this.hideAcceptBar()
+    this.allowRevoke && this.showRevokeBar()
   }
 
   revokeCookies = () => {
     this.unsetCookie()
     this.onCookiesRevoked && this.onCookiesRevoked()
+    this.hideRevokeBar()
   }
 
-  hide = () => {
+  hideRevokeBar = () => {
+    this.cookieRevokeBar.className += ' eufuckingcookie-revokebar-hidden'
+  }
+
+  hideAcceptBar = () => {
     this.cookieAcceptBar.className += ' eufuckingcookie-acceptbar-hidden'
   }
 
@@ -74,7 +101,7 @@ export default class EUFuckingLaw {
   }
 
   unsetCookie = () => {
-    document.cookie += `; expires=${new Date() - 60 * 1000}`
+    document.cookie += `eufuckingcookies=deny; expires=Thu, 01 Jan 1970 00:00:00 UTC`
   }
 }
 
