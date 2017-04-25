@@ -84,8 +84,8 @@ var EUFuckingLaw = function EUFuckingLaw(_ref) {
       onCookiesAccepted = _ref.onCookiesAccepted,
       onCookiesRejected = _ref.onCookiesRejected,
       onCookiesRevoked = _ref.onCookiesRevoked,
-      _ref$allowDecline = _ref.allowDecline,
-      allowDecline = _ref$allowDecline === undefined ? true : _ref$allowDecline,
+      _ref$allowReject = _ref.allowReject,
+      allowReject = _ref$allowReject === undefined ? true : _ref$allowReject,
       _ref$allowRevoke = _ref.allowRevoke,
       allowRevoke = _ref$allowRevoke === undefined ? false : _ref$allowRevoke,
       style = _ref.style;
@@ -99,7 +99,7 @@ var EUFuckingLaw = function EUFuckingLaw(_ref) {
   this.onCookiesRevoked = onCookiesRevoked;
 
   this.allowRevoke = allowRevoke;
-  this.allowDecline = allowDecline;
+  this.allowReject = allowReject;
   this.cookieAcceptBar = null; // The cookiebar with the info text and got it / decline buttons
   this.cookieRevokeBar = null; // The cookie bar with the reject button after the cookie has been accepted
 
@@ -127,7 +127,7 @@ var _initialiseProps = function _initialiseProps() {
       _this.cookieRevokeBar.className = 'eufuckingcookie-revokebar';
 
       var infoTextElement = document.createElement('p');
-      infoTextElement.innerText = 'Sie haben die M\xF6glichkeit, Ihre Zustimmung zur Verwendung von Cookie auf unseren Seiten jederzeit zu widerrufen. Klicken Sie hierf\xFCr einfach auf den Button.';
+      infoTextElement.innerText = 'According to EU laws we grant to you the possibility of revoking your agreement on cookie usage on this site.';
       _this.cookieRevokeBar.appendChild(infoTextElement);
 
       var revokeButton = document.createElement('button');
@@ -150,10 +150,10 @@ var _initialiseProps = function _initialiseProps() {
       _this.cookieAcceptBar.className = 'eufuckingcookie-acceptbar';
 
       var infoTextElement = document.createElement('p');
-      infoTextElement.innerText = 'Diese Seite verwendet Cookies. NAch EU-Richtlinien sind wir verpflichtet, Ihnen dies mitzuteilen und Ihnen die M\xF6glichkeit zu gew\xE4hren,\n        Cookies f\xFCr diese Seite zu deaktivieren. Bitte beachten Sie jedoch, dass mit der Ablehnung der Cookies der Funktionsumfang der Seite\n        unter Umst\xE4nden eingeschr\xE4nkt wird.';
+      infoTextElement.innerText = 'This site uses cookies. Due to EU laws we have to inform you about this.';
       _this.cookieAcceptBar.appendChild(infoTextElement);
 
-      if (_this.allowDecline) {
+      if (_this.allowReject) {
         var rejectButton = document.createElement('button');
         rejectButton.className = 'eufuckingcookie-declinebutton';
         rejectButton.onclick = _this.rejectCookies;
