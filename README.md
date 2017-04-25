@@ -1,4 +1,4 @@
-#EU Fucking Cookies
+# EU Fucking Cookies
 
 After messing with a few other "implementations" which did not work for me, I decided to try and write my own.
 
