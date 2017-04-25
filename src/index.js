@@ -8,8 +8,6 @@ export default class EUFuckingLaw {
     this.cookieAcceptBar = null // The cookiebar with the info text and got it / decline buttons
     this.cookieRevokeBar = null // The cookie bar with the reject button after the cookie has been accepted
 
-    this.accepted = false // Whether cookies are accepted or not
-
     this.init(parentSelector)
   }
 
@@ -42,19 +40,36 @@ export default class EUFuckingLaw {
   }
 
   rejectCookies = () => {
-    this.accepted = true
-    this.onCookiesRejected()
+    this.revokeCookies()
+    this.onCookiesRejected && this.onCookiesRejected()
     this.hide()
   }
 
   acceptCookies = () => {
-    this.accepted = false
-    this.onCookiesAccepted()
+    this.setCookie()
+    this.onCookiesAccepted && this.onCookiesAccepted()
     this.hide()
+  }
+
+  revokeCookies = () => {
+    this.unsetCookie()
+    this.onCookiesRevoked && this.onCookiesRevoked()
   }
 
   hide = () => {
     this.cookieAcceptBar.className += ' eufuckingcookie-acceptbar-hidden'
+  }
+
+  isCookieAccepted = () => {
+    return /eufuckingcookies=allow/.test(document.cookie)
+  }
+
+  setCookie = () => {
+    document.cookie = `eufuckingcookies=allow; expires=${new Date() + 30 * 7 * 24 * 60 * 60 * 1000}`
+  }
+
+  unsetCookie = () => {
+    document.cookie += `; expires=${new Date() - 60 * 1000}`
   }
 }
 
