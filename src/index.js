@@ -45,7 +45,7 @@ export default class EUFuckingLaw {
   }
 
   rejectCookies = () => {
-    this.revokeCookies()
+    this.unsetCookie()
     this.onCookiesRejected && this.onCookiesRejected()
     this.hide()
   }
