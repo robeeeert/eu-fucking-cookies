@@ -6,7 +6,7 @@
   justify-content: space-between;
   padding: 20px;
   margin: 0;
-  background-color: rgba(0, 0, 0, .5);
+  background-color: rgba(0, 0, 0, .7);
   color: white;
   font-family: sans-serif;
   top: 0;
@@ -34,7 +34,7 @@
   content: '\21E9';
   display: block;
   position: absolute;
-  background-color: rgba(0, 0, 0, .5);
+  background: inherit;
   color: white;
   padding: 10px;
   bottom: 0;
