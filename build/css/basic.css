@@ -14,6 +14,7 @@
   right: 0;
   transform: none;
   transition: all 200ms ease;
+  z-index: 999;
 }
 
 .eufuckingcookie-acceptbar.eufuckingcookie-acceptbar-hidden {
